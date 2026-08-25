@@ -5,7 +5,6 @@ package com.seth.slogger;
 // imports
 import java.util.Scanner;
 import com.seth.slogger.view.OptionPrompts;
-// import com.seth.slogger.view.ConsoleView;
 
 
 
@@ -15,8 +14,7 @@ public class Main {
 	public static final int OPT_2 = 2;
 	public static final int OPT_3 = 3;
 	public static final int OPT_4 = 4;
-	public static final int OPT_5 = 5;	// allowance constant
-	public static final int OPT_6 = 6;	// allowance constant
+
 	
 	static Scanner scanner = new Scanner(System.in);
 	
@@ -28,24 +26,35 @@ public class Main {
 	public static void displayLogs() {
 		System.out.println("Show Logs");
 		System.out.print(OptionPrompts.DISPLAY_LOGS_OPTS);
-		System.out.println(">>> ");
+		System.out.print(OptionPrompts.INPUT_INDICATOR);
 		int displayLogsOpt = scanner.nextInt();
 		
 		switch (displayLogsOpt) {
-			
+			case CNCL  -> System.out.println("CNCL");
+			case OPT_1 -> System.out.println("OPT_1");
+			case OPT_2 -> System.out.println("OPT_2");
+			case OPT_3 -> System.out.println("OPT_3");
+			case OPT_4 -> System.out.println("OPT_4");
 		}
 	}
 	
+	
+	public static void newLog() {
+		System.out.println("New Log");
+	}
+	
+	public static void mainMoreOpts() {
+		System.out.println("New Log");
+	}
 	
 	public static void main(String[] args) {
 		boolean running = true;
 		while (running) {
 			// starts with the main menu
-			System.out.print("<<< START MENU >>>"
-					+ "\n"
-					+ "\nnext line"
-					+ "\nnext >>> "
-			);
+			System.out.print("<<< START MENU >>>");
+			System.out.print(OptionPrompts.MAIN_OPTS);
+			System.out.print(OptionPrompts.INPUT_INDICATOR);
+			
 			int menuOpt = scanner.nextInt();
 			
 			switch (menuOpt) {
@@ -53,6 +62,7 @@ public class Main {
 				case OPT_1 -> displayLogs();
 				case OPT_2 -> System.out.println("OPT_2");
 				case OPT_3 -> System.out.println("OPT_3");
+				case OPT_4 -> System.out.println("OPT_4");
 				
 			}
 		}

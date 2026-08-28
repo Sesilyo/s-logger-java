@@ -18,6 +18,15 @@ public final class OptionPrompts {
 			+ "\n"
 			+ "\n\t[0] Exit S-Logger";
 	
+	
+	public static final String TAG_OPTS = "\n\t[1] Anecdote"
+			+ "\n\t[2] Academic"
+			+ "\n\t[3] Coding"
+			+ "\n\t[4] more tags --->"
+			+ "\n"
+			+ "\n\t[0] Cancel";
+	
+	
 	public static final String DISPLAY_LOGS_OPTS = "\nDISPLAY LOG MENU:"
 			+ "\n\t[1] Display All"
 			+ "\n\t[2] Display by Tag"

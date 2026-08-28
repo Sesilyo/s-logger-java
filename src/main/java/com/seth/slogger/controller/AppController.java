@@ -10,7 +10,6 @@ public class AppController {
 	public static final int OPT_2 = 2;
 	public static final int OPT_3 = 3;
 	public static final int OPT_4 = 4;
-
 	
 	static Scanner scanner = new Scanner(System.in);
 	

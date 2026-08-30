@@ -1,6 +1,9 @@
 // FILENAME: Log.java
 package com.seth.slogger.model;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 public class Log {
 	// log fields
 	private String logId;
@@ -17,9 +20,8 @@ public class Log {
 			this.logContent = logContent;
 			this.tagId = tagId;
 			this.projId = projId;
-			this.projId = dateCreated;
-			this.projId = timeCreated;
-			
+			this.dateCreated = dateCreated;
+			this.timeCreated = timeCreated;
 	}
 	
 	// getters
@@ -29,4 +31,10 @@ public class Log {
 	public String getProjId() { return projId; }
 	public String getDateCreated() { return dateCreated; }
 	public String getTimeCreated() { return timeCreated; }
+	
+	public long getDaysSinceCreated() {
+		LocalDate created = LocalDate.parse(dateCreated);
+		LocalDate today	  = LocalDate.now();
+		return ChronoUnit.DAYS.between(created, today);
+	}
 }

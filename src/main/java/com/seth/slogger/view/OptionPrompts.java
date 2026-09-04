@@ -26,6 +26,15 @@ public final class OptionPrompts {
 			+ "\n"
 			+ "\n\t[0] Cancel";
 	
+	public static final String INIT_LOG_OPTS = "\n\t[1] Write Log"
+			+ "\n\t[0] Cancel";
+	
+	public static final String FINALIZE_LOG_INIT = "\n\t[1] Finalize Log"
+			+ "\n\t[0] Cancel";
+	
+	public static final String WRITE_lOG = "\n\tWrite log after \">>>\"."
+			+ "\n\t[0]Type \"END-OF-LOG\" + Enter key to end writing.";
+	
 	
 	public static final String DISPLAY_LOGS_OPTS = "\nDISPLAY LOG MENU:"
 			+ "\n\t[1] Display All"

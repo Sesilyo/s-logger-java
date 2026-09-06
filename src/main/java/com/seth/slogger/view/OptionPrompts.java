@@ -32,7 +32,7 @@ public final class OptionPrompts {
 	public static final String FINALIZE_LOG_INIT = "\n\t[1] Finalize Log"
 			+ "\n\t[0] Cancel";
 	
-	public static final String WRITE_lOG = "\n\tWrite log after \">>>\"."
+	public static final String WRITE_LOG = "\n\tWrite log after \">>>\"."
 			+ "\n\t[0]Type \"END-OF-LOG\" + Enter key to end writing.";
 	
 	

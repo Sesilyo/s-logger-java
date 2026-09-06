@@ -12,8 +12,8 @@ import com.seth.slogger.controller.AppController;
 
 public class LogController {
 	private final String END_OF_LOG_INDICATOR = "END-OF-LOG";
+	private final Scanner scanner;
 	// Use a single scanner instance
-	private final Scanner scanner = new Scanner(System.in);
 	
 	public int prelimSelection() {
 		while (true) {
@@ -56,8 +56,14 @@ public class LogController {
 		System.out.println("Write log after \">>>\"");
 		System.out.print(OptionPrompts.INPUT_INDICATOR);
 		
-		scanner.nextLine();
-		return scanner.nextLine();
+		scanner.nextLine();	// consumes left-over newline
+		StringBuilder typed_lines = new StringBuilder();
+		
+		String line;
+		while (!(line = scanner.nextLine()).equals(END_OF_LOG_INDICATOR)) {
+			typed_lines.append(line).append("\n");
+		}
+		return typed_lines.toString().trim();
 	}
 	
 	
@@ -76,7 +82,7 @@ public class LogController {
 	}
 	
 	
-	public LogController() {
+	public void run() {
 		boolean running = true;
 		while (running) {
 			// [1]	Give me option to cancel log initialization
@@ -92,5 +98,10 @@ public class LogController {
 		}
 		// Close scanner only when the entire controller stops running
 		scanner.close();
+	}
+	
+	public LogController(Scanner scanner) {
+		// scanner object passed is from the AppController
+		this.scanner = scanner;
 	}
 }

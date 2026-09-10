@@ -3,6 +3,7 @@ package com.seth.slogger.controller;
 // imports
 import java.util.Scanner;
 import com.seth.slogger.view.OptionPrompts;
+import com.seth.slogger.controller.LogController;
 
 public class AppController {
 	public static final int CNCL  = 0;
@@ -36,6 +37,8 @@ public class AppController {
 	
 	public void newLog() {
 		System.out.println("New Log");
+		LogController logController = new LogController(scanner);
+		logController.run();
 	}
 	
 	public void mainMoreOpts() {
@@ -55,7 +58,7 @@ public class AppController {
 			switch (menuOpt) {
 				case CNCL  -> exitProgram();
 				case OPT_1 -> displayLogs();
-				case OPT_2 -> System.out.println("OPT_2");
+				case OPT_2 -> newLog();
 				case OPT_3 -> System.out.println("OPT_3");
 				case OPT_4 -> System.out.println("OPT_4");
 				

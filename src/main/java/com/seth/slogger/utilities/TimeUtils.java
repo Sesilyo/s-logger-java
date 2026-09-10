@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class TimeUtils {
+public final class TimeUtils {
 	private TimeUtils() {
 		throw new UnsupportedOperationException("Cannot instantiate. This is a utility class.");
 	}

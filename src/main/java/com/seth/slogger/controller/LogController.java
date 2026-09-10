@@ -8,12 +8,16 @@ import java.util.InputMismatchException;
 
 import com.seth.slogger.model.Log;
 import com.seth.slogger.view.OptionPrompts;
+import com.seth.slogger.utilities.TimeUtils;
 
 
 public class LogController {
 	private final String END_OF_LOG_INDICATOR = "END-OF-LOG";
-	private final Scanner scanner;
+	
 	// Use a single scanner instance
+	private final Scanner scanner;
+	
+	
 	
 	public int prelimSelection() {
 		while (true) {
@@ -30,11 +34,12 @@ public class LogController {
 	}
 	
 	
-	public Boolean finalizeInitLog(String newLogContent) {
+	public Boolean finalizeInitLog(String newLogContent, String dateToday, String timeNow) {
 		System.out.println("Finalizing log initialization.");
 		System.out.println("Please review for error.");
 		System.out.println("* reminder: once initialized, log is immutable *");
 		
+		System.out.println("TAG | " + dateToday + " | "+ timeNow);
 		System.out.println("Log Content:");
 		System.out.println(newLogContent);
 		System.out.println(OptionPrompts.FINALIZE_LOG_INIT);
@@ -51,12 +56,17 @@ public class LogController {
 		// [2] Write new log content
 		String newLogContent = writeLog();
 		
-		// [3] Confirm new log before initialization
-		Boolean isConfirmed = finalizeInitLog(newLogContent);
+		// [3] Get time and date
+		String timeNow   = TimeUtils.timeNow();
+		String dateToday = TimeUtils.dateToday();
+		
+		// [4] Confirm new log before initialization
+		Boolean isConfirmed = finalizeInitLog(newLogContent, dateToday, timeNow);
 		
 		if ( !isConfirmed ) return null;
 		
-		// [4] Initialize Log
+		
+		// [5] Initialize Log
 		Log newLog = new Log(END_OF_LOG_INDICATOR, newLogContent, END_OF_LOG_INDICATOR,
 				END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR);			
 		
@@ -95,6 +105,8 @@ public class LogController {
 					case AppController.CNCL  -> System.out.println("Cancelled");
 					default -> System.out.println("Invalid Input");
 				}
+				
+				return 1;
 				
 			} catch (InputMismatchException e) {
 				System.out.println("Error: Please enter a valid option.");

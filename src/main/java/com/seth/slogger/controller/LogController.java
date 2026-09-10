@@ -8,7 +8,7 @@ import java.util.InputMismatchException;
 
 import com.seth.slogger.model.Log;
 import com.seth.slogger.view.OptionPrompts;
-import com.seth.slogger.controller.AppController;
+
 
 public class LogController {
 	private final String END_OF_LOG_INDICATOR = "END-OF-LOG";
@@ -30,7 +30,7 @@ public class LogController {
 	}
 	
 	
-	public int finalizeInitLog(String newLogContent) {
+	public Boolean finalizeInitLog(String newLogContent) {
 		System.out.println("Finalizing log initialization.");
 		System.out.println("Please review for error.");
 		System.out.println("* reminder: once initialized, log is immutable *");
@@ -39,16 +39,27 @@ public class LogController {
 		System.out.println(newLogContent);
 		System.out.println(OptionPrompts.FINALIZE_LOG_INIT);
 		System.out.println(OptionPrompts.INPUT_INDICATOR);
-		return scanner.nextInt();		
+		return scanner.nextBoolean();
 	}
 	
 	
 	public Log initLog() {
-		// [1] Write new log content
-		String newLogContent = writeLog();
-		int    newTag		 = promptTagSelection();
+		// [1] Choose Tag
+		int newTag = promptTagSelection();
+		if (newTag == AppController.CNCL) return null;
 		
-		Log newLog = new Log(END_OF_LOG_INDICATOR, newLogContent, END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR);
+		// [2] Write new log content
+		String newLogContent = writeLog();
+		
+		// [3] Confirm new log before initialization
+		Boolean isConfirmed = finalizeInitLog(newLogContent);
+		
+		if ( !isConfirmed ) return null;
+		
+		// [4] Initialize Log
+		Log newLog = new Log(END_OF_LOG_INDICATOR, newLogContent, END_OF_LOG_INDICATOR,
+				END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR, END_OF_LOG_INDICATOR);			
+		
 		return newLog;
 	}
 	
@@ -61,6 +72,7 @@ public class LogController {
 		
 		String line;
 		while (!(line = scanner.nextLine()).equals(END_OF_LOG_INDICATOR)) {
+			// while the next line is not "END-OF-LOG"
 			typed_lines.append(line).append("\n");
 		}
 		return typed_lines.toString().trim();
@@ -70,9 +82,20 @@ public class LogController {
 	public int promptTagSelection() {		
 		while (true) {
 			try {
+				System.out.println("Choose a tag");
 				System.out.print(OptionPrompts.TAG_OPTS);		
 				System.out.print(OptionPrompts.INPUT_INDICATOR);
-				return scanner.nextInt();
+				int tagOpt = scanner.nextInt();
+				
+				switch (tagOpt) {
+					case AppController.OPT_1 -> System.out.println("Anecdote");
+					case AppController.OPT_2 -> System.out.println("Academic");
+					case AppController.OPT_3 -> System.out.println("Coding");
+					case AppController.OPT_4 -> System.out.println("More tags");
+					case AppController.CNCL  -> System.out.println("Cancelled");
+					default -> System.out.println("Invalid Input");
+				}
+				
 			} catch (InputMismatchException e) {
 				System.out.println("Error: Please enter a valid option.");
 				scanner.nextLine(); // Clear the invalid input from the buffer
